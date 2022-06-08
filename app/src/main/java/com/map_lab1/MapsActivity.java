@@ -47,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationRequest locationRequest ;
     private LocationCallback locationCallback ;
 
+    int mName = 0 ;
     private Marker userMarker , favMarker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +89,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
-                setMarker(latLng);
+
+                if (mName <= 3)
+                {
+                    setMarker(latLng);
+                }
+
             }
 
 
         });
     }
     private void setMarker(LatLng latLng) {
-        MarkerOptions options = new MarkerOptions().position(latLng).title("My fav").
-                draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                .snippet("nice place");
-        mMap.addMarker(options);
+
+        String ch = "A";
+        switch (mName)
+        {
+            case 0 : ch = "A";
+                     break ;
+            case 1 : ch = "B";
+                break       ;
+            case 2 : ch = "C";
+                break;
+            case 3 : ch = "D";
+                break;
+            default: ch = "O";
+                break;
+        }
+
+            MarkerOptions options = new MarkerOptions().position(latLng).title(ch).
+                    draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                    .snippet("nice place");
+            mMap.addMarker(options);
+            mName++;
 
     }
 
